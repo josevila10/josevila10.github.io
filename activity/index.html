@@ -13,11 +13,15 @@ function render(){
     const yearMatch=selectedYear==='all'||group.dataset.year===selectedYear;
     group.style.setProperty('display',yearMatch?'block':'none','important');
 
+    let visibleRows=0;
     group.querySelectorAll('.activity-row').forEach(row=>{
       const t=row.dataset.type||'';
       const typeMatch=currentType==='all'||t.includes(currentType)||(currentType==='other'&&!['presentation','publication','poster','moderator'].some(x=>t.includes(x)));
-      row.style.setProperty('display',yearMatch&&typeMatch?'grid':'none','important');
+      const visible=yearMatch&&typeMatch;
+      row.style.setProperty('display',visible?'grid':'none','important');
+      if(visible) visibleRows++;
     });
+    group.style.setProperty('display',yearMatch&&visibleRows>0?'block':'none','important');
   });
 }
 
