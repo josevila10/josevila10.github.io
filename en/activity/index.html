@@ -7,6 +7,12 @@ let currentType='all';
 
 function render(){
   const selectedYear=yearFilter.value;
+  const publicationView=currentType==='publication';
+  const hero=document.querySelector('.hero');
+  hero.querySelector('h1').textContent=publicationView?'Publications':'Professional Activity';
+  hero.querySelector('.intro').textContent=publicationView?'A chronological list of my publications. Browse by year or explore other types of professional activity using the filters below.':'A chronological record of presentations, publications, posters, moderation, reports, and other professional contributions since 2020. Browse the complete archive or filter by type of activity.';
+  hero.querySelector('.stats').style.display=publicationView?'none':'';
+  document.title=publicationView?'Publications — José Vila':'Professional Activity — José Vila';
   buttons.forEach(b=>b.classList.toggle('active-filter',b.dataset.filter===currentType));
 
   document.querySelectorAll('.year-group').forEach(group=>{
